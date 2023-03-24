@@ -1,19 +1,25 @@
-/*class Validator {    
-    validateUser(name) {
-      return /^(?!.*[\d]{3})[^\d-_][\w-]+[^\d-_]$/.test(name);
-    }
-  }*/
-
-// ниженаписанный метод, реализован так, потому как вышеперечисленная реализация
-// - не нравится Eslint и он выдает ошибку
 class Validator {
   constructor(name) {
     this.name = name;
   }
 
   validateUser() {
-    return /^(?!.*[\d]{3})[^\d-_][\w-]+[^\d-_]$/.test(this.name);
+    const exeptThreeNumbersInRow = '^(?!.*[0-9]{3})[^0-9-_]$';
+    const numbersLatinSymbolsAndDashesAccepted = '[^0-9-_][A-Za-z_-]+';
+    const lastNotNumbersDashes = '[^0-9-_]$';
+    const sumOfRules = new RegExp(
+      `${exeptThreeNumbersInRow}${numbersLatinSymbolsAndDashesAccepted}${lastNotNumbersDashes}`,
+    );
+
+    return sumOfRules.test(this.name);
   }
+
+  /* validateUser() {
+    const exeptThreeNumbersInRow = new RegExp(
+      "^(?!.*[0-9]{3})[^0-9-_][w-]+"
+    );
+    return exeptThreeNumbersInRow.test(this.name);
+  } */
 }
 
 export default Validator;
